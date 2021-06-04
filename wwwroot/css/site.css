@@ -74,6 +74,31 @@ body {
 ----------------------------------------*/
 
 .center_div {
-    margin: 0 auto!important;
-    width: 80%!important /* value of your choice which suits your alignment */
+    display: flex;
+    flex-direction: row;
+    margin-left:0;
+    padding-left:0;
+    background-image:url('../imgs/BolaDeBasket2.png');
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-size:cover;
+}
+
+.login-img{
+    flex-grow:2;
+}
+
+.login-form{
+    left:0;
+    flex-grow:1;
+}
+
+.login_page {
+    height: -webkit-fill-available;
+}
+
+.login_properties_container {
+    height: -webkit-fill-available;
+    margin-left: 5%;
+    top: 10%;
 }
