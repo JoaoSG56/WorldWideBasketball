@@ -1,7 +1,7 @@
 ﻿@page
-@model LoginModel
+@model RegisterModel
 @{
-    ViewData["Title"] = "Login page";
+    ViewData["Title"] = "Register page";
 }
 <main class="form-signin center_div" >
     <div class="login_properties_container col-md-4 col-md-offset-4">
@@ -18,23 +18,30 @@
                 <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
 
             </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
+            <div class="form-floating">
+                <label for="floatingPassword">Repeat Password</label>
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Repeat Password">
             </div>
-            <div class="mb-3">
-                <a asp-area="" asp-page="/Register">Register new account</a>
+
+            <div class="form-floating">
+                <label for="floatingInput">Name</label>
+                <input type="text" class="form-control" id="floatingInput" placeholder="Name">
+
             </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+
+
+            <div class="form-floating">
+                <label for="floatingInput">Birth Day</label>
+                <input type="date" class="form-control" id="floatingInput" placeholder="date">
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary mt-4" type="submit">Sign up</button>
 
         </form>
     </div>
-
 
     @*<div class="login-img">
         <img src="imgs/BolaDeBasket.png" alt="Responsive image">
     </div>*@
 </main>
-
 

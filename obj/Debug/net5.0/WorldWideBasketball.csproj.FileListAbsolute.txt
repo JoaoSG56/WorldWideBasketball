@@ -38,3 +38,4 @@
 /Users/joao/Universidade/LI4/WorldWideBasketball/obj/Debug/net5.0/WorldWideBasketball.pdb
 /Users/joao/Universidade/LI4/WorldWideBasketball/obj/Debug/net5.0/WorldWideBasketball.genruntimeconfig.cache
 /Users/joao/Universidade/LI4/WorldWideBasketball/obj/Debug/net5.0/WorldWideBasketball.csproj.CopyComplete
+/Users/joao/Universidade/LI4/WorldWideBasketball/obj/Debug/net5.0/Razor/Pages/Register.cshtml.g.cs
