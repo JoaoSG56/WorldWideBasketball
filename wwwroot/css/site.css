@@ -107,3 +107,8 @@ body {
     margin-top:30%;
     margin-bottom:90%;
 }
+
+.logo-brand{
+    margin-top:-40px !important;
+    margin-bottom:-40px !important;
+}
