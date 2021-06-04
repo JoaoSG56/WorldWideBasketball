@@ -20,7 +20,7 @@
       "outputPath": "/Users/joao/Universidade/LI4/WorldWideBasketball/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/joao/.nuget/NuGet/NuGet.Config"
+        "/Users/joao/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"

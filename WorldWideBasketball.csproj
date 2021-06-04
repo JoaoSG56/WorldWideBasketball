@@ -4,13 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'WTest' " />
   <ItemGroup>
-    <Folder Include="wwwroot\imgs\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="wwwroot\imgs\BolaDeBasket.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="wwwroot\imgs\BolaDeBasket.png" />
+    <None Include="Views\Home\Register.cshtml" />
+    <None Include="Views\Home\Login.cshtml" />
+    <None Include="Views\Shared\Login.cshtml" />
   </ItemGroup>
 </Project>
