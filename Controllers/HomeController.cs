@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using WTest.Models;
+using WorldWideBasketball.Models;
 
-namespace WTest.Controllers
+namespace WorldWideBasketball.Controllers
 {
     public class HomeController : Controller
     {
@@ -30,7 +30,8 @@ namespace WTest.Controllers
 
         public IActionResult Login()
         {
-            return View();
+            Console.WriteLine("VAI PARA ACCOUNT\n\n");
+            return View("Login");
         }
 
         public IActionResult Register()

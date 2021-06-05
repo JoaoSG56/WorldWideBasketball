@@ -1,6 +1,6 @@
 using System;
 
-namespace WTest.Models
+namespace WorldWideBasketball.Models
 {
     public class ErrorViewModel
     {
