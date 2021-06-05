@@ -24,10 +24,7 @@ namespace WorldWideBasketball.Controllers
         public IActionResult Home()
         {
             LigasDAO ligasDAO = new LigasDAO();
-            foreach (Liga l in ligasDAO.getAllLigas())
-            {
-                Console.WriteLine(l.getString());
-            }
+            
             model.setObject(ligasDAO.getAllLigas());
             return View("Ligas", model);
         }
