@@ -49,7 +49,8 @@ namespace WorldWideBasketball.Controllers
 
         void connectionString()
         {
-            con.ConnectionString = "data source=127.0.0.1,1433; Database=WWB; User ID=SA;Password=MyPassword.1;";
+            //con.ConnectionString = "data source=127.0.0.1,1433; Database=WWB; User ID=;Password=MyPassword.1;";
+            con.ConnectionString = "Data Source=DESKTOP-8CRGERR;Initial Catalog=WWB;Integrated Security=True";
         }
 
         [HttpPost]
@@ -60,7 +61,7 @@ namespace WorldWideBasketball.Controllers
             con.Open();
 
             com.Connection = con;
-            com.CommandText = "select * from Utilizador where Email='" + account.Email + "' and Password='" + account.Password + "'";
+            com.CommandText = "select * from [Utilizador] where Email='" + account.Email + "' and Password='" + account.Password + "'";
             dr = com.ExecuteReader();
             if (dr.Read())
             {
@@ -102,7 +103,7 @@ namespace WorldWideBasketball.Controllers
             con.Open();
 
             com.Connection = con;
-            com.CommandText = "select * from Utilizador where Email='" + account.Email + "'";
+            com.CommandText = "select * from [Utilizador] where Email='" + account.Email + "'";
             dr = com.ExecuteReader();
             if (dr.Read())
             {
@@ -116,7 +117,7 @@ namespace WorldWideBasketball.Controllers
             {
                 dr.Close();
                 Console.WriteLine("Registering ...");
-                com.CommandText = "Insert into Utilizador VALUES('" + account.Username + "', '" + account.Password + "', '" + account.Data + "', '" + account.Email + "', '" + account.Name + "');";
+                com.CommandText = "Insert into [Utilizador] VALUES('" + account.Username + "', '" + account.Password + "', '" + account.Data + "', '" + account.Email + "', '" + account.Name + "');";
                 try
                 {
                     com.ExecuteNonQuery();
