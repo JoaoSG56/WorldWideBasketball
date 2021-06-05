@@ -3,6 +3,8 @@ namespace WorldWideBasketball.Models
 {
     public class LogingInfo
     {
+        private Object t;
+
         private bool logged;
 
         private int status;
@@ -20,6 +22,7 @@ namespace WorldWideBasketball.Models
         {
             this.logged = false;
             this.status = 0;
+            this.t = null;
         }
         public LogingInfo(bool b)
         {
@@ -47,6 +50,15 @@ namespace WorldWideBasketball.Models
             this.status = s;
         }
 
+        public Object getObject()
+        {
+            return this.t;
+        }
+
+        public void setObject(Object t)
+        {
+            this.t = t;
+        }
 
     }
 }

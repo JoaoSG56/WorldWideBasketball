@@ -1,0 +1,18 @@
+﻿@using WorldWideBasketball.Models;
+@model WorldWideBasketball.Models.LogingInfo;
+@{
+    ViewBag.Title = "Liga";
+}
+
+<div class="text-center">
+    @{Liga liga = (Liga)Model.getObject();
+        <h1 class="display-4">Informação Liga: @liga.Nome</h1>
+
+        foreach (Equipa a in liga.Equipas)
+        {
+            <p><a href="https://docs.microsoft.com/aspnet/core">@a.Name</a></p>
+        }
+
+    }
+
+</div>

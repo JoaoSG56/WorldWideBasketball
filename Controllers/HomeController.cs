@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WorldWideBasketball.Models;
+using WorldWideBasketball.DataAccess;
 
 namespace WorldWideBasketball.Controllers
 {
@@ -20,15 +21,15 @@ namespace WorldWideBasketball.Controllers
             _logger = logger;
         }
 
-        //public IActionResult Index()
-        //{
-        //    LogingInfo model = new LogingInfo(false);
-        //    return View(model);
-        //}
-
         public IActionResult Home()
         {
-            return View(model);
+            LigasDAO ligasDAO = new LigasDAO();
+            foreach (Liga l in ligasDAO.getAllLigas())
+            {
+                Console.WriteLine(l.getString());
+            }
+            model.setObject(ligasDAO.getAllLigas());
+            return View("Ligas", model);
         }
 
         public IActionResult Privacy()
@@ -36,25 +37,40 @@ namespace WorldWideBasketball.Controllers
             return View(model);
         }
 
-        //public IActionResult Login()
-        //{
-        //    Console.WriteLine("VAI PARA ACCOUNT\n\n");
-        //    return View("Login");
-        //}
+        public IActionResult Liga(int id)
+        {
+            LigasDAO ligasDAO = new LigasDAO();
+            Liga liga = ligasDAO.getLigaById(id);
+            if (liga != null)
+            {
+                EquipaDAO equipaDAO = new EquipaDAO();
+                liga.Equipas = equipaDAO.getEquipaByLeage(id);
+
+                model.setObject(liga);
+                return View("Liga", model);
+            }
+            else
+            {
+                return View("Ligas", model);
+            }
+        }
+
+        public IActionResult GetTeams()
+        {
+            EquipaDAO equipaDAO = new EquipaDAO();
+            equipaDAO.getEquipaByName("Bulls");
+            return View("Home", model);
+        }
+
 
         public IActionResult Logout()
         {
             Console.WriteLine("LOGING OUT");
             model.setLogged(false);
             model.setStatus(4);
-            return RedirectToAction("Index", "Account",model);
+            return RedirectToAction("Index", "Account", model);
 
         }
-
-        //public IActionResult Register()
-        //{
-        //    return View();
-        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

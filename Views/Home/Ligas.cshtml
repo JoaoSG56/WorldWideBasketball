@@ -1,0 +1,18 @@
+﻿@using WorldWideBasketball.Models;
+@model WorldWideBasketball.Models.LogingInfo;
+@{
+    ViewBag.Title = "Ligas";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Todas as Ligas:</h1>
+    @foreach (Liga a in (List<Liga>)Model.getObject())
+    {
+        <p><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Liga" asp-route-id="@a.Id">@a.Nome</a></p>
+
+        @*<p><a href="https://docs.microsoft.com/aspnet/core">@name</a>.</p>*@
+    }
+
+
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>

@@ -14,8 +14,33 @@ namespace WorldWideBasketball.DataAccess
 
         private void connectionString()
         {
-            //con.ConnectionString = "data source=127.0.0.1,1433; Database=WWB; User ID=;Password=MyPassword.1;";
-            con.ConnectionString = "Data Source=DESKTOP-8CRGERR;Initial Catalog=WWB;Integrated Security=True";
+            con.ConnectionString = "data source=127.0.0.1,1433; Database=WWB; User ID=SA;Password=MyPassword.1;";
+            //con.ConnectionString = "Data Source=DESKTOP-8CRGERR;Initial Catalog=WWB;Integrated Security=True";
+        }
+
+
+        public bool isValid(Account account)
+        {
+            connectionString();
+            con.Open();
+
+            com.Connection = con;
+            com.CommandText = "select * from [Utilizador] where Email='" + account.Email + "' and Password='" + account.Password + "'";
+            dr = com.ExecuteReader();
+            if (dr.Read())
+            {
+                Console.WriteLine("CorreCCCto");
+                dr.Close();
+                con.Close();
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Wrong Mail/Password");
+                dr.Close();
+                con.Close();
+                return false;
+            }
         }
 
         public int Insert(Account account)
@@ -64,14 +89,6 @@ namespace WorldWideBasketball.DataAccess
 
             }
         }
-
-
-
-
-
-
-
 	}
-
 }
 
