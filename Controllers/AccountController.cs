@@ -15,18 +15,37 @@ namespace WorldWideBasketball.Controllers
         SqlCommand com = new SqlCommand();
         SqlDataReader dr;
 
-
+        private LogingInfo model = new LogingInfo(false);
+        
         // GET: Account
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            return View(model);
         }
 
         public IActionResult Register()
         {
-            return View();
+
+            return View(model);
         }
+
+        public IActionResult Index()
+        {
+            return View(model);   
+        }
+
+        public IActionResult Privacy()
+        {
+            return View(model);
+        }
+
+        //public IActionResult Logout()
+        //{
+        //    model.set(false);
+        //    return RedirectToAction("Home", "Index", model);
+
+        //}
 
         void connectionString()
         {
@@ -48,14 +67,17 @@ namespace WorldWideBasketball.Controllers
                 Console.WriteLine("CorreCCCto");
                 dr.Close();
                 con.Close();
-                return View("Home_Logged");
+                model.setLogged(true);
+                model.setStatus(3);
+                return RedirectToAction("Home", "Home",model);
             }
             else
             {
                 Console.WriteLine("Wrong Mail/Password");
                 dr.Close();
                 con.Close();
-                return View("Register");
+                model.setStatus(5);
+                return View("Login",model);
             }
 
 
@@ -64,6 +86,18 @@ namespace WorldWideBasketball.Controllers
         [HttpPost]
         public ActionResult RegisterUser(Account account)
         {
+            if(account.Email == null || account.Email == "" || !account.Email.Contains("@"))
+            {
+                model.setStatus(-1);
+                return View("Register", model);
+            }
+
+            if(account.Password != account.ConfirmPassword)
+            {
+                model.setStatus(2);
+                return View("Register", model);
+            }
+
             connectionString();
             con.Open();
 
@@ -75,7 +109,8 @@ namespace WorldWideBasketball.Controllers
                 Console.WriteLine("User já Existente");
                 dr.Close();
                 con.Close();
-                return View();
+                model.setStatus(7);
+                return View("Register",model);
             }
             else
             {
@@ -87,13 +122,15 @@ namespace WorldWideBasketball.Controllers
                     com.ExecuteNonQuery();
                     Console.WriteLine("Sucesso");
                     con.Close();
-                    return View("Login");
+                    model.setStatus(1);
+                    return View("Login",model);
                 }
                 catch (SqlException)
                 {
                     Console.WriteLine("Erro no Registo");
                     con.Close();
-                    return View();
+                    model.setStatus(6);
+                    return View("Register",model);
                 }
 
             }

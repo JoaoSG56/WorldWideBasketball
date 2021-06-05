@@ -13,31 +13,48 @@ namespace WorldWideBasketball.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        private LogingInfo model = new LogingInfo(true);
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
-        public IActionResult Index()
+        //public IActionResult Index()
+        //{
+        //    LogingInfo model = new LogingInfo(false);
+        //    return View(model);
+        //}
+
+        public IActionResult Home()
         {
-            return View();
+            return View(model);
         }
 
         public IActionResult Privacy()
         {
-            return View();
+            return View(model);
         }
 
-        public IActionResult Login()
+        //public IActionResult Login()
+        //{
+        //    Console.WriteLine("VAI PARA ACCOUNT\n\n");
+        //    return View("Login");
+        //}
+
+        public IActionResult Logout()
         {
-            Console.WriteLine("VAI PARA ACCOUNT\n\n");
-            return View("Login");
+            Console.WriteLine("LOGING OUT");
+            model.setLogged(false);
+            model.setStatus(4);
+            return RedirectToAction("Index", "Account",model);
+
         }
 
-        public IActionResult Register()
-        {
-            return View();
-        }
+        //public IActionResult Register()
+        //{
+        //    return View();
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
