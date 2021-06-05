@@ -5,8 +5,14 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'WorldWideBasketball' " />
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'WTest' " />
   <ItemGroup>
+    <None Include="DataAccess\UserDAO.cs">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UserDAO.cs</LastGenOutput>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UserDAO.cs</DependentUpon>
+    </None>
     <None Include="Views\Account\Login.cshtml" />
     <None Include="Views\Account\Register.cshtml" />
   </ItemGroup>
@@ -16,5 +22,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Account\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="DataAccess\UserDAO.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UserDAO.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

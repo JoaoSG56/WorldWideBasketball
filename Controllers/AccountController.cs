@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 using WorldWideBasketball.Models;
+using WorldWideBasketball.DataAccess;
 
 namespace WorldWideBasketball.Controllers
 
@@ -87,54 +88,80 @@ namespace WorldWideBasketball.Controllers
         [HttpPost]
         public ActionResult RegisterUser(Account account)
         {
-            if(account.Email == null || account.Email == "" || !account.Email.Contains("@"))
-            {
-                model.setStatus(-1);
-                return View("Register", model);
-            }
 
-            if(account.Password != account.ConfirmPassword)
-            {
-                model.setStatus(2);
-                return View("Register", model);
-            }
+            UserDAO user = new UserDAO();
 
-            connectionString();
-            con.Open();
-
-            com.Connection = con;
-            com.CommandText = "select * from [Utilizador] where Email='" + account.Email + "'";
-            dr = com.ExecuteReader();
-            if (dr.Read())
+            switch (user.Insert(account))
             {
-                Console.WriteLine("User já Existente");
-                dr.Close();
-                con.Close();
-                model.setStatus(7);
-                return View("Register",model);
-            }
-            else
-            {
-                dr.Close();
-                Console.WriteLine("Registering ...");
-                com.CommandText = "Insert into [Utilizador] VALUES('" + account.Username + "', '" + account.Password + "', '" + account.Data + "', '" + account.Email + "', '" + account.Name + "');";
-                try
-                {
-                    com.ExecuteNonQuery();
-                    Console.WriteLine("Sucesso");
-                    con.Close();
+                case -1:
+                    model.setStatus(-1);
+                    return View("Register", model);
+                case 1:
                     model.setStatus(1);
                     return View("Login",model);
-                }
-                catch (SqlException)
-                {
-                    Console.WriteLine("Erro no Registo");
-                    con.Close();
+                case 2:
+                    model.setStatus(2);
+                    return View("Register", model);
+                case 6:
                     model.setStatus(6);
+                    return View("Register", model);
+                case 7:
+                    model.setStatus(7);
                     return View("Register",model);
-                }
-
+                default:
+                    model.setStatus(0);
+                    return View("Register", model);
             }
+
+
+            //if(account.Email == null || account.Email == "" || !account.Email.Contains("@"))
+            //{
+            //    model.setStatus(-1);
+            //    return View("Register", model);
+            //}
+
+            //if(account.Password != account.ConfirmPassword)
+            //{
+            //    model.setStatus(2);
+            //    return View("Register", model);
+            //}
+
+            //connectionString();
+            //con.Open();
+
+            //com.Connection = con;
+            //com.CommandText = "select * from [Utilizador] where Email='" + account.Email + "'";
+            //dr = com.ExecuteReader();
+            //if (dr.Read())
+            //{
+            //    Console.WriteLine("User já Existente");
+            //    dr.Close();
+            //    con.Close();
+            //    model.setStatus(7);
+            //    return View("Register",model);
+            //}
+            //else
+            //{
+            //    dr.Close();
+            //    Console.WriteLine("Registering ...");
+            //    com.CommandText = "Insert into [Utilizador] VALUES('" + account.Username + "', '" + account.Password + "', '" + account.Data + "', '" + account.Email + "', '" + account.Name + "');";
+            //    try
+            //    {
+            //        com.ExecuteNonQuery();
+            //        Console.WriteLine("Sucesso");
+            //        con.Close();
+            //        model.setStatus(1);
+            //        return View("Login",model);
+            //    }
+            //    catch (SqlException)
+            //    {
+            //        Console.WriteLine("Erro no Registo");
+            //        con.Close();
+            //        model.setStatus(6);
+            //        return View("Register",model);
+            //    }
+
+            //}
         }
     }
 }
