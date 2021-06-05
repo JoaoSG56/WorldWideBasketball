@@ -10,9 +10,11 @@ namespace WorldWideBasketball.DataAccess
     {
         private Connection connection = new Connection();
 
-        public List<Liga> getAllLigas()
+
+        public Dictionary<string,List<Liga>> getAllLigas()
         {
-            List<Liga> lista = new List<Liga>();
+            Dictionary<string, List<Liga>> dict = new Dictionary<string, List<Liga>>();
+
             this.connection.open();
             string query = "select * from [Liga];";
             SqlDataReader dr = this.connection.executeReader(query);
@@ -20,11 +22,21 @@ namespace WorldWideBasketball.DataAccess
             // Call Read before accessing data.
             while (dr.Read())
             {
-                lista.Add(ReadSingleRow((IDataRecord)dr));
+                Liga l = ReadSingleRow((IDataRecord)dr);
+                if (!dict.ContainsKey(l.Localizacao))
+                {
+                    List<Liga> list = new List<Liga>();
+                    list.Add(l);
+                    dict.Add(l.Localizacao, list);
+                }
+                else
+                {
+                    dict[l.Localizacao].Add(l);
+                }
             }
             dr.Close();
             this.connection.close();
-            return lista;
+            return dict;
         }
 
         public Liga getLigaById(int id)
