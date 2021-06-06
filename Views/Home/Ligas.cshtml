@@ -15,13 +15,12 @@
         <li><a class="dropdown-item" href="#">Something else here</a></li>
     </ul>
 </div>*@
-
-<div class="text-center">
-    <h1 class="">Todas as Ligas:</h1>
+<h1 class="">Todas as Ligas:</h1>
+<div class="list_leagues">
     @foreach (KeyValuePair<string, List<Liga>> entry in (Dictionary<string, List<Liga>>)Model.getObject())
     {
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle liga_button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 @entry.Key
             </button>
 
@@ -34,5 +33,4 @@
             </ul>
         </div>
     }
-
 </div>
