@@ -43,6 +43,17 @@ namespace WorldWideBasketball.Controllers
                 EquipaDAO equipaDAO = new EquipaDAO();
                 liga.Equipas = equipaDAO.getEquipaByLeage(id);
 
+                JogoDAO jogoDAO = new JogoDAO();
+                Dictionary<int, List<Jogo>> dict = new Dictionary<int, List<Jogo>>();
+                foreach(Equipa a in liga.Equipas)
+                {
+                    List<Jogo> jogos = new List<Jogo>();
+                    jogos = jogoDAO.getAllJogosByTeamId(a.Id);
+                    dict.Add(a.Id, jogos);
+                }
+
+                liga.JogosEquipa = dict;
+
                 model.setObject(liga);
                 return View("Liga", model);
             }

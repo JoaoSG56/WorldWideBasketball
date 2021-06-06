@@ -11,6 +11,17 @@
         foreach (Equipa a in liga.Equipas)
         {
             <p><a href="https://docs.microsoft.com/aspnet/core">@a.Name</a></p>
+            Console.WriteLine(a.Name);
+            List<Jogo> l = new List<Jogo>();
+            l = liga.JogosEquipa.GetValueOrDefault(a.Id);
+            {
+                foreach (Jogo j in l)
+                {
+                    Console.WriteLine(j.Resultado);
+                        <p><a href="#">@j.Equipa_Casa ---- @j.Resultado ---- @j.Equipa_Vis.</a></p>
+                    }
+
+            }
         }
 
     }

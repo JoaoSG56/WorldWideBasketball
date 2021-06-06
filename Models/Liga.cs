@@ -20,6 +20,8 @@ namespace WorldWideBasketball.Models
 
         public List<Equipa> Equipas { get; set; }
 
+        public Dictionary<int, List<Jogo>> JogosEquipa { get; set; }
+
         public string getString()
         {
             return this.Id + ": " + this.Nome + ", " + this.Localizacao;
