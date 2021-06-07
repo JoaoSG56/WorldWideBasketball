@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WorldWideBasketball.Models;
 using WorldWideBasketball.DataAccess;
-
+using MapIntegration.Models;
 namespace WorldWideBasketball.Controllers
 {
     public class HomeController : Controller
@@ -21,19 +21,43 @@ namespace WorldWideBasketball.Controllers
             _logger = logger;
         }
 
-        public IActionResult Ligas()
+        public IActionResult Ligas(string id)
         {
-            if (model == null) Console.WriteLine("AAAAAAAA");
-            if (!model.getLogged()) return RedirectToAction("Error", "Account", model);
-            Console.WriteLine(model.getLogged());
             LigasDAO ligasDAO = new LigasDAO();
-            model.setObject(ligasDAO.getAllLigas());
-            return View("Ligas", model);
+            if (id == null)
+            {
+
+                model.setObject(ligasDAO.getAllLigas());
+                return View("Ligas", model);
+            }
+            else
+            {
+                Console.WriteLine(id);
+                List<Liga> ligas = ligasDAO.getLigasByCountry(id);
+                if (ligas.Any())
+                {
+                    model.setObject(ligasDAO.getLigasByCountry(id));
+                    return View("Ligas", model);
+                }
+                else
+                    return Home();
+            }
         }
+        
+
 
         public IActionResult Home()
         {
-            if (!model.getLogged()) return Error();
+
+            LocationLists modelaux = new LocationLists();
+            var locations = new List<Locations>()
+            {
+                new Locations(1, "Bhubaneswar","Bhubaneswar, Odisha", "20.296059", "85.824539"),
+                new Locations(2, "Hyderabad","Hyderabad, Telengana", "17.387140", "78.491684"),
+                new Locations(3, "Bengaluru","Bengaluru, Karnataka", "12.972442", "77.580643")
+            };
+            modelaux.LocationList = locations;
+            model.setObject(modelaux);
             return View("Home", model);
         }
 
@@ -45,7 +69,6 @@ namespace WorldWideBasketball.Controllers
 
         public IActionResult LigaJogos(int id)
         {
-            if (!model.getLogged()) return RedirectToAction("Error", "Account", model);
             LigasDAO ligasDAO = new LigasDAO();
             Liga liga = ligasDAO.getLigaById(id);
             if (liga != null)
@@ -76,7 +99,6 @@ namespace WorldWideBasketball.Controllers
 
         public IActionResult LigaEquipas(int id)
         {
-            if (!model.getLogged()) return RedirectToAction("Error", "Account", model);
             List<Equipa> lista = new EquipaDAO().getEquipasByLeage(id);
             if (lista != null)
             {
@@ -92,7 +114,7 @@ namespace WorldWideBasketball.Controllers
 
         public IActionResult Equipa(int id)
         {
-            if (!model.getLogged()) return RedirectToAction("Error", "Account", model);
+ 
             Equipa equipa = new EquipaDAO().getEquipaById(id);
             Estatistica estatistica = new EstatisticaDAO().getEstatisticaByID(id);
 
@@ -108,7 +130,7 @@ namespace WorldWideBasketball.Controllers
         [HttpPost]
         public IActionResult Search(string key)
         {
-            if (!model.getLogged()) return RedirectToAction("Error", "Account", model);
+   
             Dictionary<string, Object> values = new Dictionary<string, Object>();
 
             values["ligas"] = (Object) new LigasDAO().getLigasLike(key);
@@ -121,7 +143,7 @@ namespace WorldWideBasketball.Controllers
 
         public IActionResult Logout()
         {
-            if (!model.getLogged()) return RedirectToAction("Error", "Account", model);
+  
             Console.WriteLine("LOGING OUT");
             model.setLogged(false);
             model.setStatus(4);

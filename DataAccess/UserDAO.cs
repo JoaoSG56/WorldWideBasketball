@@ -18,14 +18,12 @@ namespace WorldWideBasketball.DataAccess
 
             if (dr.Read())
             {
-                Console.WriteLine("CorreCCCto");
                 dr.Close();
                 this.connection.close();
                 return true;
             }
             else
             {
-                Console.WriteLine("Wrong Mail/Password");
                 dr.Close();
                 this.connection.close();
                 return false;

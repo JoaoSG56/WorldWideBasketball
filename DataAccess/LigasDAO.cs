@@ -39,6 +39,25 @@ namespace WorldWideBasketball.DataAccess
             return dict;
         }
 
+        public List<Liga> getLigasByCountry(string country)
+        {
+            List<Liga> ligas = new List<Liga>();
+            this.connection.open();
+            string query1 = "select * from [Liga] where Localizacao='" + country + "';";
+
+            SqlDataReader dr = this.connection.executeReader(query1);
+            
+            while (dr.Read())
+            {
+                Liga l = ReadSingleRow((IDataRecord)dr);
+                if (!ligas.Contains(l))
+                    ligas.Add(l);
+            }
+            dr.Close();
+            this.connection.close();
+            return ligas;
+        }
+
         public List<Liga> getLigasLike(string key)
         {
             List<Liga> ligas = new List<Liga>();
