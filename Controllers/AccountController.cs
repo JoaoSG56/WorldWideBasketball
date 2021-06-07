@@ -79,6 +79,9 @@ namespace WorldWideBasketball.Controllers
                 case 7:
                     model.setStatus(7);
                     return View("Register",model);
+                case 8:
+                    model.setStatus(8);
+                    return View("Register", model);
                 default:
                     model.setStatus(0);
                     return View("Register", model);

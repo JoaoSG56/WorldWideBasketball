@@ -14,7 +14,7 @@
                     <div class="form-floating">
                         <label for="floatingInput" class="form-label">Email address</label>
                         <input type="email" name="Email" class="form-control is-invalid" id="floatingInput" placeholder="name@example.com">
-                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        <div id="validationServerEmailFeedback" class="invalid-feedback">
                             Invalid Email Address.
                         </div>
                     </div>
@@ -24,7 +24,7 @@
                     <div class="form-floating">
                         <label for="floatingInput" class="form-label">Email address</label>
                         <input type="email" name="Email" class="form-control is-invalid" id="floatingInput" placeholder="name@example.com">
-                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        <div id="validationServerEmailFeedback" class="invalid-feedback">
                             Email Address already in use.
                         </div>
                     </div>
@@ -61,7 +61,6 @@
                     <label for="floatingPassword" class="form-label">Repeat Password</label>
                     <input type="password" name="ConfirmPassword" class="form-control" id="floatingPassword" placeholder="Repeat Password">
                 </div>
-                Model.setStatus(0);
             }
 
 
@@ -71,11 +70,26 @@
                 <input type="text" name="Name" class="form-control" id="floatingInput" placeholder="Name">
 
             </div>
+            @if (Model.getStatus() == 8)
+            {
 
-            <div class="form-floating">
-                <label for="floatingInput">Birth Date</label>
-                <input type="date" name="Data" class="form-control" id="floatingInput" placeholder="date">
+
+        <div class="form-floating">
+            <label for="floatingInput">Birth Date</label>
+            <input type="date" name="Data" class="form-control is-invalid" id="floatingInput" placeholder="date">
+            <div id="validationServerDataFeedback" class="invalid-feedback">
+                Data inválida.
             </div>
+        </div>
+                Model.setStatus(0);
+            }
+            else
+            {
+                <div class="form-floating">
+                    <label for="floatingInput">Birth Date</label>
+                    <input type="date" name="Data" class="form-control" id="floatingInput" placeholder="date">
+                </div>
+            }
 
             <button class="w-100 btn btn-lg btn-primary mt-4" type="submit">Sign up</button>
 

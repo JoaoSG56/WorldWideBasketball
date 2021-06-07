@@ -42,6 +42,27 @@ namespace WorldWideBasketball.DataAccess
                 return 2;
             }
 
+            DateTime zeroTime = new DateTime(1, 1, 1);
+            DateTime localDate = DateTime.Now;
+            if (localDate < account.Data)
+                return 8;
+
+            TimeSpan span = localDate - account.Data;
+            
+            
+
+            // Because we start at year 1 for the Gregorian
+            // calendar, we must subtract a year here.
+            int years = (zeroTime + span).Year - 1;
+
+            if (years < 18 || years > 100)
+            {
+                return 8;
+            }
+
+            // 1, where my other algorithm resulted in 0.
+            Console.WriteLine("Yrs elapsed: " + years);
+
             this.connection.open();
 
             string query = "select * from [Utilizador] where Email='" + account.Email + "'";

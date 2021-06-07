@@ -17,6 +17,7 @@ namespace WorldWideBasketball.Models
             5 - wrong email/password
             6 - other
             7 - email address already in use
+            8 - invalid Date
         */
         public LogingInfo()
         {
