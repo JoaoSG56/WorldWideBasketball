@@ -24,7 +24,6 @@ namespace WorldWideBasketball.Controllers
         public IActionResult Home()
         {
             LigasDAO ligasDAO = new LigasDAO();
-            
             model.setObject(ligasDAO.getAllLigas());
             return View("Ligas", model);
         }

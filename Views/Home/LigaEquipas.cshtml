@@ -28,16 +28,17 @@
 </div>
 
 <div class="text-center">
+ 
+        @{
 
-    @{
+            foreach (Equipa e in listaEquipas)
+            {
 
-        foreach (Equipa e in listaEquipas)
-        {
+            <p> class="dropdown-item" asp-area="" asp-controller="Home" asp-action="LigaJogos asp-route-id="@e.Id">@e.Name - @e.Localizacao</p>
 
-            <p><a href="#"> @e.Name </a></p>
+            }
 
         }
-    }
 
 
 
