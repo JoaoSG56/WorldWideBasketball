@@ -38,6 +38,20 @@ namespace WorldWideBasketball.DataAccess
 
         }
 
+        public Equipa getEquipaById(int id)
+        {
+            this.connection.open();
+            string query = "select * from [Equipa] where id='" + id + "';";
+            SqlDataReader dr = this.connection.executeReader(query);
+            Equipa e = null;
+            if (dr.Read())
+            {
+                e = ReadSingleRow((IDataRecord)dr);
+            }
+            dr.Close();
+            this.connection.close();
+            return e;
+        }
         private List<Equipa> getAllTeamsByQuery(string query)
         {
             List<Equipa> lista = new List<Equipa>();

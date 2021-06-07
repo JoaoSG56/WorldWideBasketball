@@ -31,7 +31,7 @@
         <ul>
             @foreach (Equipa e in equipas)
             {
-                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="LigaJogos" asp-route-id="@e.Id">@e.Name - @e.Localizacao</a></li>
+                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Equipa" asp-route-id="@e.Id">@e.Name - @e.Localizacao</a></li>
             }
         </ul>
     }

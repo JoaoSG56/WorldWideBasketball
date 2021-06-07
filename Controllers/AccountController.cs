@@ -30,6 +30,7 @@ namespace WorldWideBasketball.Controllers
 
         public IActionResult Index()
         {
+            Console.WriteLine(model.getLogged());
             return View(model);   
         }
 

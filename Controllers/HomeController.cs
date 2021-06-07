@@ -23,6 +23,9 @@ namespace WorldWideBasketball.Controllers
 
         public IActionResult Home()
         {
+            if (model == null) Console.WriteLine("AAAAAAAA");
+            if (!model.getLogged()) return RedirectToAction("Error", "Account", model);
+            Console.WriteLine(model.getLogged());
             LigasDAO ligasDAO = new LigasDAO();
             model.setObject(ligasDAO.getAllLigas());
             return View("Ligas", model);
@@ -30,11 +33,13 @@ namespace WorldWideBasketball.Controllers
 
         public IActionResult Privacy()
         {
+            if (!model.getLogged()) return Error();
             return View(model);
         }
 
         public IActionResult LigaJogos(int id)
         {
+            if (!model.getLogged()) return RedirectToAction("Error", "Account", model);
             LigasDAO ligasDAO = new LigasDAO();
             Liga liga = ligasDAO.getLigaById(id);
             if (liga != null)
@@ -65,7 +70,7 @@ namespace WorldWideBasketball.Controllers
 
         public IActionResult LigaEquipas(int id)
         {
-
+            if (!model.getLogged()) return RedirectToAction("Error", "Account", model);
             List<Equipa> lista = new EquipaDAO().getEquipasByLeage(id);
             if (lista != null)
             {
@@ -79,9 +84,25 @@ namespace WorldWideBasketball.Controllers
 
         }
 
+        public IActionResult Equipa(int id)
+        {
+            if (!model.getLogged()) return RedirectToAction("Error", "Account", model);
+            Equipa equipa = new EquipaDAO().getEquipaById(id);
+            Estatistica estatistica = new EstatisticaDAO().getEstatisticaByID(id);
+
+            if (equipa != null && estatistica != null)
+            {
+                model.setObject((equipa, estatistica));
+                return View("Equipa", model);
+            }
+            return View("Home",model);
+
+        }
+
         [HttpPost]
         public IActionResult Search(string key)
         {
+            if (!model.getLogged()) return RedirectToAction("Error", "Account", model);
             Dictionary<string, Object> values = new Dictionary<string, Object>();
 
             values["ligas"] = (Object) new LigasDAO().getLigasLike(key);
@@ -94,6 +115,7 @@ namespace WorldWideBasketball.Controllers
 
         public IActionResult Logout()
         {
+            if (!model.getLogged()) return RedirectToAction("Error", "Account", model);
             Console.WriteLine("LOGING OUT");
             model.setLogged(false);
             model.setStatus(4);
