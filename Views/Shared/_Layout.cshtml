@@ -13,10 +13,19 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
             <div class="container">
-                <a class="navbar-brand logo-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/imgs/Logotipo.png" href="#" alt="" height="90" class="img-responsive" />
-                </a>
+                @if (Model.getLogged())
+                {
+                    <a class="navbar-brand logo-brand" asp-area="" asp-controller="Home" asp-action="Home">
+                        <img src="~/imgs/Logotipo.png" href="#" alt="" height="90" class="img-responsive" />
+                    </a>
+                }
+                else
+                {
 
+                    <a class="navbar-brand logo-brand" asp-area="" asp-controller="Account" asp-action="Index">
+                        <img src="~/imgs/Logotipo.png" href="#" alt="" height="90" class="img-responsive" />
+                    </a>
+                }
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -28,15 +37,20 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Home">Home</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
-                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="GetTeams">Mostrar Equipas</a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link text-dark dropdown-toggle" id="navDropDownLink" data-toggle="dropdown">
+                                    Profile
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navDropDownLink">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                                </div>
                             </li>
+
+
 
                         }
                         else
@@ -59,8 +73,8 @@
                     </ul>
                     @if (Model.getLogged())
                     {
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <form class="d-flex" action="Search" method="post">
+                            <input class="form-control me-2" name="key" type="text" placeholder="Search" aria-label="text">
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                     }

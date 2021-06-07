@@ -63,31 +63,33 @@ namespace WorldWideBasketball.Controllers
             }
         }
 
-        public IActionResult LigaEquipas(int idLiga)
-        {
-            Console.WriteLine("[HomeController]: " + idLiga);
 
-            List<Equipa> lista = new EquipaDAO().getEquipasByLeage(idLiga);
-            if(lista != null)
+        public IActionResult LigaEquipas(int id)
+        {
+
+            List<Equipa> lista = new EquipaDAO().getEquipasByLeage(id);
+            if (lista != null)
             {
-                Liga l = new LigasDAO().getLigaById(idLiga);
-                if (l == null)
-                    Console.WriteLine("MERDA");
-                else
-                    Console.WriteLine(l.Nome);
-                model.setObject((l,lista));
-                
+                Liga l = new LigasDAO().getLigaById(id);
+
+                model.setObject((l, lista));
+
                 return View("LigaEquipas", model);
             }
-            return View("Ligas",model);
-            
+            return View("Ligas", model);
+
         }
 
-        public IActionResult GetTeams()
+        [HttpPost]
+        public IActionResult Search(string key)
         {
-            EquipaDAO equipaDAO = new EquipaDAO();
-            equipaDAO.getEquipasByName("Bulls");
-            return View("Home", model);
+            Dictionary<string, Object> values = new Dictionary<string, Object>();
+
+            values["ligas"] = (Object) new LigasDAO().getLigasLike(key);
+            values["equipas"] = (Object)new EquipaDAO().getEquipasLike(key);
+
+            model.setObject(values);
+            return View("Search", model);
         }
 
 

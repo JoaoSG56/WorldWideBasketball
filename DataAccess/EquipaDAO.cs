@@ -10,7 +10,7 @@ namespace WorldWideBasketball.DataAccess
     {
         private Connection connection = new Connection();
 
-        public List<Equipa> getEquipasByName(string name)
+        public List<Equipa> getEquipasLike(string name)
         {
             string query = "select * from [Equipa] where Nome Like '%" + name + "%';";
             return getAllTeamsByQuery(query);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace WorldWideBasketball.Models
 {
-    public class Liga
+    public class Liga : IEquatable<Liga>, IComparable<Liga>
     {
         public Liga(int id, string nome, string localizacao)
         {
@@ -25,6 +25,23 @@ namespace WorldWideBasketball.Models
         public string getString()
         {
             return this.Id + ": " + this.Nome + ", " + this.Localizacao;
+        }
+
+        public int CompareTo(Liga comparePart)
+        {
+            if (comparePart == null) return 1;
+            if (this.Nome.CompareTo(comparePart.Nome) == 0)
+            {
+                return this.Id.CompareTo(comparePart.Id);
+
+            }
+            else
+                return this.Nome.CompareTo(comparePart.Nome);
+        }
+
+        public bool Equals(Liga other)
+        {
+            return (this.Id == other.Id);
         }
     }
 }
