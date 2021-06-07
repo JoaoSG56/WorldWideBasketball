@@ -35,20 +35,32 @@
                         @if (Model.getLogged())
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Home">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Ligas">Ligas</a>
                             </li>
 
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                             </li>
-                            <li class="nav-item dropdown">
+
+                            @*<li class="nav-item dropdown">
                                 <a href="#" class="nav-link text-dark dropdown-toggle" id="navDropDownLink" data-toggle="dropdown">
-                                    Profile
+                                    <img src="~/imgs/profile_pic.png" href="#" alt="" height="auto" class="img-responsive" />
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navDropDownLink">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
                                 </div>
+                            </li>*@
+
+                            <li class="nav-item dropdown">
+                                <a class="navbar-brand dropdown-toggle logo-brand" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+                                    <img src="~/imgs/profile_pic.png" alt="" height="50" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                                </div>
                             </li>
+
+
 
 
 
@@ -71,14 +83,15 @@
 
 
                     </ul>
-                    @if (Model.getLogged())
-                    {
-                        <form class="d-flex" asp-controller="Home" asp-action="Search" method="post">
-                            <input class="form-control me-2" name="key" type="text" placeholder="Search" aria-label="text">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
-                    }
-                </div>
+                        @if (Model.getLogged())
+                        {
+                            <form class="d-flex" asp-controller="Home" asp-action="Search" method="post">
+                                <input class="form-control me-2" name="key" type="text" placeholder="Search" aria-label="text">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
+
+                        }
+                    </div>
             </div>
         </nav>
     </header>
@@ -94,7 +107,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container text-center">
-            &copy; 2021 - WorldWideBasketball Grupo 22 - <a asp-area="" asp-controller="Home">Privacy</a>
+            &copy; 2021 - WorldWideBasketball Grupo 22 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
 

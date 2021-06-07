@@ -21,7 +21,7 @@ namespace WorldWideBasketball.Controllers
             _logger = logger;
         }
 
-        public IActionResult Home()
+        public IActionResult Ligas()
         {
             if (model == null) Console.WriteLine("AAAAAAAA");
             if (!model.getLogged()) return RedirectToAction("Error", "Account", model);
@@ -29,6 +29,12 @@ namespace WorldWideBasketball.Controllers
             LigasDAO ligasDAO = new LigasDAO();
             model.setObject(ligasDAO.getAllLigas());
             return View("Ligas", model);
+        }
+
+        public IActionResult Home()
+        {
+            if (!model.getLogged()) return Error();
+            return View("Home", model);
         }
 
         public IActionResult Privacy()

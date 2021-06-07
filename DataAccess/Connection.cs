@@ -15,9 +15,9 @@ namespace WorldWideBasketball.DataAccess
 
         private void connectionString()
         {
-            con.ConnectionString = "Data Source=DESKTOP-08IE2T4;Initial Catalog=WWB;Integrated Security=True";
+            //con.ConnectionString = "Data Source=DESKTOP-08IE2T4;Initial Catalog=WWB;Integrated Security=True";
             //con.ConnectionString = "data source=127.0.0.1,1433; Database=WWB; User ID=SA;Password=MyPassword.1;";
-            //con.ConnectionString = "Data Source=DESKTOP-8CRGERR;Initial Catalog=WWB;Integrated Security=True";
+            con.ConnectionString = "Data Source=DESKTOP-8CRGERR;Initial Catalog=WWB;Integrated Security=True";
         }
 
         public void open()
