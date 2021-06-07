@@ -42,11 +42,13 @@ namespace WorldWideBasketball.DataAccess
         public Liga getLigaById(int id)
         {
             this.connection.open();
+            Console.WriteLine("[LigasDAO]: " + id);
             string query = "select * from [Liga] where id='" + id + "';";
             SqlDataReader dr = this.connection.executeReader(query);
             Liga r = null;
             if (dr.Read())
             {
+                Console.WriteLine((IDataRecord)dr);
                 r = ReadSingleRow((IDataRecord)dr);
             }
             dr.Close();

@@ -1,0 +1,44 @@
+﻿@using WorldWideBasketball.Models;
+@model WorldWideBasketball.Models.LogingInfo;
+@{
+    ViewBag.Title = "Liga Equipas";
+}
+
+
+@{
+    
+    (Liga,List<Equipa>) infoPag = ((Liga,List<Equipa>))Model.getObject();
+    Liga liga = infoPag.Item1;
+    List<Equipa> listaEquipas = infoPag.Item2;
+    Console.WriteLine(liga.Nome);
+
+}
+
+
+
+
+<div class="text-center">
+    <h1 class="display-4" style="flex-grow">Informação Liga: @liga.Nome</h1>
+
+    <div>
+        <a class="btn btn-outline-danger" asp-area="" asp-controller="Home" asp-action="LigaJogos" asp-route-id="@liga.Id">Jogos</a>
+        <button type="button" class="btn btn-outline-success active" >Equipas</button>
+    </div>
+
+</div>
+
+<div class="text-center">
+
+    @{
+
+        foreach (Equipa e in listaEquipas)
+        {
+
+            <p><a href="#"> @e.Name </a></p>
+
+        }
+    }
+
+
+
+</div>

@@ -27,7 +27,7 @@
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 @foreach (Liga l in entry.Value)
                 {
-                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Liga" asp-route-id="@l.Id">@l.Nome</a></li>
+                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="LigaJogos" asp-route-id="@l.Id">@l.Nome</a></li>
 
                 }
             </ul>

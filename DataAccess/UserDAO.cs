@@ -8,37 +8,26 @@ namespace WorldWideBasketball.DataAccess
 	public class UserDAO
 	{
 
-        SqlConnection con = new SqlConnection();
-        SqlCommand com = new SqlCommand();
-        SqlDataReader dr;
-
-        private void connectionString()
-        {
-            //con.ConnectionString = "data source=127.0.0.1,1433; Database=WWB; User ID=SA;Password=MyPassword.1;";
-            con.ConnectionString = "Data Source=DESKTOP-8CRGERR;Initial Catalog=WWB;Integrated Security=True";
-        }
-
+        private Connection connection = new Connection();
 
         public bool isValid(Account account)
         {
-            connectionString();
-            con.Open();
+            this.connection.open();
+            string query = "select * from [Utilizador] where Email='" + account.Email + "' and Password='" + account.Password + "'";
+            SqlDataReader dr = this.connection.executeReader(query);
 
-            com.Connection = con;
-            com.CommandText = "select * from [Utilizador] where Email='" + account.Email + "' and Password='" + account.Password + "'";
-            dr = com.ExecuteReader();
             if (dr.Read())
             {
                 Console.WriteLine("CorreCCCto");
                 dr.Close();
-                con.Close();
+                this.connection.close();
                 return true;
             }
             else
             {
                 Console.WriteLine("Wrong Mail/Password");
                 dr.Close();
-                con.Close();
+                this.connection.close();
                 return false;
             }
         }
@@ -55,35 +44,33 @@ namespace WorldWideBasketball.DataAccess
                 return 2;
             }
 
-            connectionString();
-            con.Open();
+            this.connection.open();
 
-            com.Connection = con;
-            com.CommandText = "select * from [Utilizador] where Email='" + account.Email + "'";
-            dr = com.ExecuteReader();
+            string query = "select * from [Utilizador] where Email='" + account.Email + "'";
+            SqlDataReader dr = this.connection.executeReader(query);
             if (dr.Read())
             {
                 Console.WriteLine("User já Existente");
                 dr.Close();
-                con.Close();
+                this.connection.close();
                 return 7;
             }
             else
             {
                 dr.Close();
                 Console.WriteLine("Registering ...");
-                com.CommandText = "Insert into [Utilizador] VALUES('" + account.Username + "', '" + account.Password + "', '" + account.Data + "', '" + account.Email + "', '" + account.Name + "');";
+                query = "Insert into [Utilizador] VALUES('" + account.Username + "', '" + account.Password + "', '" + account.Data + "', '" + account.Email + "', '" + account.Name + "');";
                 try
                 {
-                    com.ExecuteNonQuery();
+                    this.connection.executeQuery(query);
                     Console.WriteLine("Sucesso");
-                    con.Close();
+                    this.connection.close();
                     return 1;
                 }
                 catch (SqlException)
                 {
                     Console.WriteLine("Erro no Registo");
-                    con.Close();
+                    this.connection.close();
                     return 6;
                 }
 

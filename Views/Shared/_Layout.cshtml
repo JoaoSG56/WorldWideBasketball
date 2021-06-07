@@ -9,12 +9,12 @@
 
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
             <div class="container">
                 <a class="navbar-brand logo-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="../imgs/Logotipo.png" href="#" alt="" height="90" class="img-responsive" />
+                    <img src="~/imgs/Logotipo.png" href="#" alt="" height="90" class="img-responsive" />
                 </a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -74,8 +74,12 @@
         </main>
     </div>
 
+
+
+    <!-- Footer -->
+
     <footer class="border-top footer text-muted">
-        <div class="container">
+        <div class="container text-center">
             &copy; 2021 - WorldWideBasketball Grupo 22 - <a asp-area="" asp-controller="Home">Privacy</a>
         </div>
     </footer>
@@ -88,4 +92,3 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-

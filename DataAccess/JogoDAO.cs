@@ -39,6 +39,27 @@ namespace WorldWideBasketball.DataAccess
             return dict;
         }
 
+        public List<Jogo> getAllJogosByLigaOrdered(int id_Liga)
+        {
+            this.connection.open();
+            string query = "SELECT j.Id,j.Data,j.Hora,j.Resultado,j.Equipa_Casa,j.Equipa_Visitante FROM [Jogo] as j " +
+                "INNER JOIN[Equipa] as e " +
+                "ON j.Equipa_Casa = e.Id " +
+                "WHERE e.Liga_Id = '" + id_Liga + "';";
+            SqlDataReader dr = this.connection.executeReader(query);
+            List<Jogo> r = new List<Jogo>();
+            while (dr.Read())
+            {
+                Jogo j = ReadSingleRow((IDataRecord)dr);
+                if(!r.Contains(j))
+                    r.Add(j);
+            }
+            dr.Close();
+            this.connection.close();
+            r.Sort();
+            return r;
+        }
+
         public List<Jogo> getAllJogosByTeamId(int id)
         {
             this.connection.open();
@@ -57,7 +78,7 @@ namespace WorldWideBasketball.DataAccess
 
         private Jogo ReadSingleRow(IDataRecord record)
         {
-            return new Jogo(Int32.Parse(record[0].ToString()), record[1].ToString(), record[2].ToString(),record[3].ToString(), Int32.Parse(record[4].ToString()), Int32.Parse(record[5].ToString()));
+            return new Jogo(Int32.Parse(record[0].ToString()), record[1].ToString().Remove(10), record[2].ToString().Remove(5),record[3].ToString(), Int32.Parse(record[4].ToString()), Int32.Parse(record[5].ToString()));
 
         }
     }

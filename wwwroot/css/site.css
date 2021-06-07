@@ -134,3 +134,8 @@ body {
     margin-top: 5%;
     width: 250px;
 }
+
+.flexHeader{
+    display:flex;
+    flex-direction:row;
+}

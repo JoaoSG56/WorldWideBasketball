@@ -1,0 +1,12 @@
+Insert into [Estatisticas] VALUES('79', '78', '21', '6', '1', '1', '81');
+Insert into [Estatisticas] VALUES('78', '79', '19', '7', '2', '-1', '85');
+Insert into [Estatisticas] VALUES('62', '74', '16', '9', '3', '-12', '91');
+Insert into [Estatisticas] VALUES('58', '62', '15', '8', '4', '-4', '84');
+Insert into [Estatisticas] VALUES('65', '90', '11', '10', '5', '-25', '90');
+Insert into [Estatisticas] VALUES('72', '81', '9', '12', '6', '-9', '88');
+Insert into [Estatisticas] VALUES('70', '73', '8', '13', '7', '-3', '89');
+Insert into [Estatisticas] VALUES('84', '103', '5', '15', '8', '-19', '87');
+Insert into [Estatisticas] VALUES('93', '95', '4', '15', '9', '-2', '92');
+Insert into [Estatisticas] VALUES('89', '83', '3', '16', '10', '6', '82');
+Insert into [Estatisticas] VALUES('82', '81', '3', '2', '11', '1', '86');
+Insert into [Estatisticas] VALUES('76', '60', '2', '3', '12', '16', '83');

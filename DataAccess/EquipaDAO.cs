@@ -10,19 +10,33 @@ namespace WorldWideBasketball.DataAccess
     {
         private Connection connection = new Connection();
 
-        public List<Equipa> getEquipaByName(string name)
+        public List<Equipa> getEquipasByName(string name)
         {
             string query = "select * from [Equipa] where Nome Like '%" + name + "%';";
             return getAllTeamsByQuery(query);
         }
 
-        public List<Equipa> getEquipaByLeage(int leagueID)
+        public List<Equipa> getEquipasByLeage(int leagueID)
         {
             string query = "select * from [Equipa] where Liga_Id='"+ leagueID + "';";
             return getAllTeamsByQuery(query);   
         }
 
+        public Dictionary<int,string> getStringEquipasByLeague(int idLeague)
+        {
 
+            Dictionary<int, string> dictNames = new Dictionary<int, string>();
+            this.connection.open();
+            SqlDataReader dr = this.connection.executeReader("select Id,Nome from [Equipa] where Liga_Id='" + idLeague + "';");
+            while (dr.Read())
+            {
+                dictNames.Add(Int32.Parse( ((IDataRecord)dr)[0].ToString()), ((IDataRecord)dr)[1].ToString());
+            }
+            dr.Close();
+            this.connection.close();
+            return dictNames;
+
+        }
 
         private List<Equipa> getAllTeamsByQuery(string query)
         {
@@ -32,10 +46,13 @@ namespace WorldWideBasketball.DataAccess
 
             while (dr.Read())
             {
-                lista.Add(ReadSingleRow((IDataRecord)dr));
+                Equipa e = ReadSingleRow((IDataRecord)dr);
+                if (!lista.Contains(e))
+                    lista.Add(e);
             }
             dr.Close();
             this.connection.close();
+            lista.Sort();
             return lista;
         }
 

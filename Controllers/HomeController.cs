@@ -34,20 +34,20 @@ namespace WorldWideBasketball.Controllers
             return View(model);
         }
 
-        public IActionResult Liga(int id)
+        public IActionResult LigaJogos(int id)
         {
             LigasDAO ligasDAO = new LigasDAO();
             Liga liga = ligasDAO.getLigaById(id);
             if (liga != null)
             {
                 EquipaDAO equipaDAO = new EquipaDAO();
-                liga.Equipas = equipaDAO.getEquipaByLeage(id);
+                liga.Equipas = equipaDAO.getEquipasByLeage(id);
 
                 JogoDAO jogoDAO = new JogoDAO();
                 Dictionary<int, List<Jogo>> dict = new Dictionary<int, List<Jogo>>();
                 foreach(Equipa a in liga.Equipas)
                 {
-                    List<Jogo> jogos = new List<Jogo>();
+                    List<Jogo> jogos;
                     jogos = jogoDAO.getAllJogosByTeamId(a.Id);
                     dict.Add(a.Id, jogos);
                 }
@@ -55,7 +55,7 @@ namespace WorldWideBasketball.Controllers
                 liga.JogosEquipa = dict;
 
                 model.setObject(liga);
-                return View("Liga", model);
+                return View("LigaJogos", model);
             }
             else
             {
@@ -63,10 +63,30 @@ namespace WorldWideBasketball.Controllers
             }
         }
 
+        public IActionResult LigaEquipas(int idLiga)
+        {
+            Console.WriteLine("[HomeController]: " + idLiga);
+
+            List<Equipa> lista = new EquipaDAO().getEquipasByLeage(idLiga);
+            if(lista != null)
+            {
+                Liga l = new LigasDAO().getLigaById(idLiga);
+                if (l == null)
+                    Console.WriteLine("MERDA");
+                else
+                    Console.WriteLine(l.Nome);
+                model.setObject((l,lista));
+                
+                return View("LigaEquipas", model);
+            }
+            return View("Ligas",model);
+            
+        }
+
         public IActionResult GetTeams()
         {
             EquipaDAO equipaDAO = new EquipaDAO();
-            equipaDAO.getEquipaByName("Bulls");
+            equipaDAO.getEquipasByName("Bulls");
             return View("Home", model);
         }
 
